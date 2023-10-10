@@ -28,7 +28,7 @@ def send_notifications(district_name, pollution_value):
     pb = Pushbullet('o.61fA5UUNB8HmBRCHUSoys6O6OFw4G7wJ')  # Replace with your Pushbullet API key
 
     if pollution_value > 80:
-        alert_message = f"High Pollution rates in {district_name}! Please move to a new area or put on a mask."
+        alert_message = f"High Pollution ratesn {district_name}! Please move to a new area or put on a mask."
         pb.push_note(f"Air Quality Alert in {district_name}", alert_message)
     elif pollution_value < 20:
         alert_message = f"The air in {district_name} is now safe to breathe. Feel at home!"
