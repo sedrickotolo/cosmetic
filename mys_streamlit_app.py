@@ -32,7 +32,7 @@ def send_notifications(district_name, pollution_value):
         pb.push_note(f"Air Quality Alert in {district_name}", alert_message)
     elif pollution_value < 20:
         alert_message = f"The air in {district_name} is now safe to breathe. Feel at home!"
-        pb.push_note(f"Air Quality Improvement in {district_name}", alert_message)
+        pb.push_note(f"Air Quali Improvement in {district_name}", alert_message)
 
 # Function to generate random air pollution data for districts
 def generate_random_data():
