@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>3D Globe</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://threejs.org/build/three.js"></script>
+    <script>
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        var renderer = new THREE.WebGLRenderer();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Create a sphere to represent the Earth
+        var geometry = new THREE.SphereGeometry(1, 32, 32);
+        var material = new THREE.MeshBasicMaterial({color: 0x0000ff});
+        var earth = new THREE.Mesh(geometry, material);
+        scene.add(earth);
+
+        // Create a starry background
+        var starsGeometry = new THREE.Geometry();
+        for (var i = 0; i < 10000; i++) {
+            var star = new THREE.Vector3();
+            star.x = THREE.Math.randFloatSpread(2000);
+            star.y = THREE.Math.randFloatSpread(2000);
+            star.z = THREE.Math.randFloatSpread(2000);
+            starsGeometry.vertices.push(star);
+        }
+        var starsMaterial = new THREE.PointsMaterial({color: 0x888888});
+        var starField = new THREE.Points(starsGeometry, starsMaterial);
+        scene.add(starField);
+
+        // Camera position
+        camera.position.z = 5;
+
+        // Animation
+        var animate = function () {
+            requestAnimationFrame(animate);
+            earth.rotation.x += 0.01;
+            earth.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        };
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', function () {
+            var width = window.innerWidth;
+            var height = window.innerHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+
+        // Controls for zooming and rotating
+        var controls = new THREE.OrbitControls(camera, renderer.domElement);
+    </script>
+</body>
+</html>
